@@ -17,19 +17,19 @@ public class SimpleFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getName() {
-        return "Simple file";
+        return "Neat Form JSON File";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Simple language file";
+        return "Neat Form JSON File";
     }
 
     @NotNull
     @Override
     public String getDefaultExtension() {
-        return "s";
+        return Constants.FILE_EXTENSION;
     }
 
     @Nullable

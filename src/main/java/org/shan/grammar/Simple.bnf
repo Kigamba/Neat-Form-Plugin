@@ -20,29 +20,32 @@
 
     // Class which will be used to create internal nodes.
     elementTypeClass="org.shan.psi.SimpleElementType"
+
     // Class which will be used to create leaf nodes.
     tokenTypeClass="org.shan.psi.SimpleTokenType"
-  
+
     tokens = [
         IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
         WHITE_SPACE = 'regexp:\s+'
+        space ='regexp:\s+'
+        STRING_1 = 'regexp:"[^"]*"'
+        STRING_2 = "regexp:'[^']*'"
+        NUMBER_ = 'regexp:(\+|\-)?\p{Digit}*'
     ]
 }
 
-SimpleFile ::= Definition*
+JSON ::= Value*
 
-Definition ::= FunctionDefinition
+Value ::=  Object | Array | String | Number | Bool | null
 
-FunctionDefinition ::= function IDENTIFIER '(' ')' (returns Type)? '{' FunctionBody '}'
+String ::=  STRING_1 | STRING_2
 
-FunctionBody ::= Statement*
+Number ::= NUMBER_
 
-Statement ::= VariableDefinition | AssignmentStatement | FunctionInvocation
+Bool ::= 'true' | 'false'
 
-VariableDefinition ::= Type IDENTIFIER (';' | ('=' FunctionInvocation)?)
+Array ::= '[' [Value] {',' Value}* ']'
 
-Type ::= int | string
+Object ::= '{' [KeyValuePair] {',' KeyValuePair}* '}'
 
-AssignmentStatement ::= IDENTIFIER '=' FunctionInvocation
-
-FunctionInvocation ::= IDENTIFIER '(' ')' ';'
+KeyValuePair ::= String ":" Value

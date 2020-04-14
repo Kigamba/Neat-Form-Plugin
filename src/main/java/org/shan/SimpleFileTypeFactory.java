@@ -8,6 +8,6 @@ public class SimpleFileTypeFactory extends FileTypeFactory {
 
     @Override
     public void createFileTypes(@NotNull FileTypeConsumer fileTypeConsumer) {
-        fileTypeConsumer.consume(SimpleFileType.INSTANCE, "s");
+        fileTypeConsumer.consume(SimpleFileType.INSTANCE, Constants.FILE_EXTENSION);
     }
 }
