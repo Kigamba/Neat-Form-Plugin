@@ -38,6 +38,11 @@
                                implementationClass="org.shan.SimpleParserDefinition"/>
     </extensions>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.syntaxHighlighterFactory language="Neat Form JSON File"
+                                       implementationClass="org.shan.SimpleSyntaxHighlighterFactory"/>
+    </extensions>
+
     <actions>
         <!-- Add your actions here -->
     </actions>
