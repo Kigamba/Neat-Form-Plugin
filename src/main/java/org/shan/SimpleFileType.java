@@ -17,7 +17,7 @@ public class SimpleFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getName() {
-        return "Neat Form JSON File";
+        return Constants.FILE_TYPE_NAME;
     }
 
     @NotNull

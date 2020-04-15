@@ -3,10 +3,6 @@ grammar Simple;
 //*************************
 //****** Lexer rules ******
 //*************************
-IDENTIFIER
-    :   [A-Za-z] [A-Za-z0-9]*
-    ;
-
 SPACE
     :   [ \n] -> skip
     ;
@@ -27,6 +23,38 @@ NUMBER_
 
 WHITESPACE
     :   [ \t\r\n] -> skip
+    ;
+
+LEFT_CURLY
+    : '{'
+    ;
+
+RIGHT_CURLY
+    :   '}'
+    ;
+
+LEFT_BRAC
+    : '['
+    ;
+
+RIGHT_BRAC
+    : ']'
+    ;
+
+COMMA
+    : ','
+    ;
+
+COLON
+    : ':'
+    ;
+
+TRUE
+    : 'true'
+    ;
+
+FALSE
+    : 'false'
     ;
 
 //*************************

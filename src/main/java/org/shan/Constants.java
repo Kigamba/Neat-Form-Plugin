@@ -2,5 +2,6 @@ package org.shan;
 
 public interface Constants {
 
-    public String FILE_EXTENSION = "neat.json";
+    String FILE_EXTENSION = "neatjson";
+    String FILE_TYPE_NAME = "Neat Form JSON File";
 }
