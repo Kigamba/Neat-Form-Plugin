@@ -1,53 +1,56 @@
-package org.shan.lexer; // Package which will be the lexer generation location.
+package org.shan.grammar;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 
-import static com.intellij.psi.TokenType.BAD_CHARACTER; // Pre-defined bad character token.
-import static com.intellij.psi.TokenType.WHITE_SPACE; // Pre-defined whitespace character token.
-import static org.shan.psi.SimpleTypes.*; // Note that is the class which is specified as `elementTypeHolderClass`
-// in bnf grammar file. This will contain all other tokens which we will use.
+import static com.intellij.psi.TokenType.BAD_CHARACTER;
+import static com.intellij.psi.TokenType.WHITE_SPACE;
+import static org.shan.psi.SimpleTypes.*;
 
 %%
 
+%{
+  public SimpleLexer() {
+    this((java.io.Reader)null);
+  }
+%}
+
 %public
-%class SimpleLexer // Name of the lexer class which will be generated.
-%implements FlexLexer // Name of the super class.
+%class SimpleLexer
+%implements FlexLexer
 %function advance
 %type IElementType
 %unicode
 
-// We define various Lexer rules as regular expressions first.
+EOL=\R
+WHITE_SPACE=\s+
 
-// If some character sequence is matched to this regex, it will be treated as an IDENTIFIER.
-IDENTIFIER=[a-zA-Z_][a-zA-Z0-9_]*
-
-// If some character sequence is matched to this regex, it will be treated as a WHITE_SPACE.
 WHITE_SPACE=[ \t\n\x0B\f\r]+
-space=[ \t\n\x0B\f\r]+
-STRING_1="[^\"]*"
-STRING_2='[^\']*'
-NUMBER_=(\+|\-)?\p{Digit}*
+SPACE=[ \t\n\x0B\f\r]+
+STRING_1=\"[^\"]*\"
+STRING_2='[^']*'
+NUMBER_=(\+|\-)?[:digit:]*
 
-// Initial state. We can specify mutiple states for more complex grammars. This corresponds to `modes` in ANTLR grammar.
 %%
 <YYINITIAL> {
-  // In here, we match keywords. So if a keyword is found, this returns a token which corresponds to that keyword.
-  // These tokens are generated using the `Ballerina.bnf` file and located in the SimpleTypes `class`.
-  // These tokens are Parser uses these return values to match token squence to a parser rule.
+  {WHITE_SPACE}      { return WHITE_SPACE; }
 
-  // In here, we check for character sequences which matches regular expressions which we defined above.
-  {IDENTIFIER}       { return IDENTIFIER; } // This indicates that a character sequence which matches to the rule
-                                            // identifier is encountered.
-  {WHITE_SPACE}      { return WHITE_SPACE; } // This indicates that a character sequence which matches to the rule
-                                             // whitespace is encountered.
-  {STRING_1}      { return STRING_1; }
+  "{"                { return LEFT_CURLY; }
+  "}"                { return RIGHT_CURLY; }
+  "["                { return LEFT_BRAC; }
+  "]"                { return RIGHT_BRAC; }
+  ","                { return COMMA; }
+  ":"                { return COLON; }
+  "true"             { return TRUE; }
+  "false"            { return FALSE; }
+  "null"             { return NULL; }
 
-  {STRING_2}      { return STRING_2; }
+  {WHITE_SPACE}      { return WHITE_SPACE; }
+  {SPACE}            { return SPACE; }
+  {STRING_1}         { return STRING_1; }
+  {STRING_2}         { return STRING_2; }
+  {NUMBER_}          { return NUMBER_; }
 
-  {NUMBER_}      { return NUMBER_; }
 }
 
-// If the character sequence does not match any of the above rules, we return BAD_CHARACTER which indicates that
-// there is an error in the character sequence. This is used to highlight errors.
 [^] { return BAD_CHARACTER; }

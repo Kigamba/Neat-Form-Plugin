@@ -1,6 +1,7 @@
 {
     // Name and the location of the parser which will be generated.
     parserClass="org.shan.parser.SimpleParser"
+    parserUtilClass="org.shan.parser.SimpleParserUtil"
 
     // All nodes will extend this class. This wraps AST node to a PSI node.
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
@@ -25,27 +26,35 @@
     tokenTypeClass="org.shan.psi.SimpleTokenType"
 
     tokens = [
-        IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
+        //IDENTIFIER = 'regexp:[a-zA-Z_][a-zA-Z0-9_]*'
         WHITE_SPACE = 'regexp:\s+'
         space ='regexp:\s+'
         STRING_1 = 'regexp:"[^"]*"'
         STRING_2 = "regexp:'[^']*'"
         NUMBER_ = 'regexp:(\+|\-)?\p{Digit}*'
+        LEFT_CURLY = "{"
+        RIGHT_CURLY = "}"
+        LEFT_BRAC = "["
+        RIGHT_BRAC = "]"
+        COMMA = ","
+        COLON = ":"
+        TRUE = "true"
+        FALSE = "false"
     ]
 }
 
 JSON ::= Value*
 
-Value ::=  Object | Array | String | Number | Bool | null
+Value ::= Boolean | Object | Array | String | Number | null
 
 String ::=  STRING_1 | STRING_2
 
 Number ::= NUMBER_
 
-Bool ::= 'true' | 'false'
+Boolean ::= TRUE | FALSE
 
-Array ::= '[' [Value] {',' Value}* ']'
+Array ::= LEFT_BRAC [Value] {COMMA Value}* RIGHT_BRAC
 
-Object ::= '{' [KeyValuePair] {',' KeyValuePair}* '}'
+Object ::= LEFT_CURLY [KeyValuePair] {COMMA KeyValuePair}* RIGHT_CURLY
 
-KeyValuePair ::= String ":" Value
+KeyValuePair ::= String COLON Value

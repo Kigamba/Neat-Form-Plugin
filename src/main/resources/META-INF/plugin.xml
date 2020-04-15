@@ -16,7 +16,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="145.0"/>
+    <!--<idea-version since-build="145.0"/>-->
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -24,8 +24,18 @@
     <depends>com.intellij.modules.lang</depends>
     -->
 
-    <extensions defaultExtensionNs="com.intellij">
+    <!--<extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="org.shan.SimpleFileTypeFactory"/>
+    </extensions>-->
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Neat Form JSON File" implementationClass="org.shan.SimpleFileType"
+                  fieldName="INSTANCE" language="Neat Form JSON File" extensions="neatjson"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.parserDefinition language="Neat Form JSON File"
+                               implementationClass="org.shan.SimpleParserDefinition"/>
     </extensions>
 
     <actions>
