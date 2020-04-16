@@ -7,6 +7,8 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import org.shan.lexer.SimpleLexerAdapter;
+import org.shan.psi.SimpleElementType;
+import org.shan.psi.SimpleTokenType;
 import org.shan.psi.SimpleTypes;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,15 +44,21 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         System.out.println("Trying token highlights : " + tokenType.toString());
-        if (tokenType.equals(SimpleTypes.LEFT_BRAC) || tokenType.equals(SimpleTypes.RIGHT_BRAC) || tokenType.equals(SimpleTypes.LEFT_CURLY) || tokenType.equals(SimpleTypes.RIGHT_CURLY)) {
+        if (tokenType instanceof SimpleTokenType) {
+            System.out.println("this is a Token Type");
+        } else if (tokenType instanceof SimpleElementType) {
+            System.out.println("This is an Element Type");
+        }
+
+        if (tokenType.equals(SimpleTypes.PROPERTY_KEY)) {
+            return KEY_KEYS;
+        } else if (tokenType.equals(SimpleTypes.LEFT_BRAC) || tokenType.equals(SimpleTypes.RIGHT_BRAC) || tokenType.equals(SimpleTypes.LEFT_CURLY) || tokenType.equals(SimpleTypes.RIGHT_CURLY)) {
             return SEPARATOR_KEYS;
         } else if (tokenType.equals(SimpleTypes.BOOLEAN) ) {
             return KEY_KEYS;
         } else if (tokenType.equals(SimpleTypes.STRING) || tokenType.equals(SimpleTypes.STRING_1) || tokenType.equals(SimpleTypes.STRING_2)) {
             return VALUE_KEYS;
-        } /*else if (tokenType.equals(SimpleTypes.COMMENT)) {
-            return COMMENT_KEYS;
-        }*/ else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
+        } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {
             System.out.println(tokenType.toString() + " IS AN EMPTY KEY");
