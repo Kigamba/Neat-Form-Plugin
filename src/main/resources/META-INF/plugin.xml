@@ -43,6 +43,11 @@
                                        implementationClass="org.shan.SimpleSyntaxHighlighterFactory"/>
     </extensions>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor language="Neat Form JSON File"
+                                implementationClass="org.shan.completion_contributor.SimpleCompletionContributor"/>
+    </extensions>
+
     <actions>
         <!-- Add your actions here -->
     </actions>
