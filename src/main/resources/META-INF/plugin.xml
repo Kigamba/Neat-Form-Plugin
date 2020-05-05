@@ -4,16 +4,9 @@
     <version>1.0</version>
     <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
 
-    <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>My Short Descriptionkldsljljljljdskkdslkdslkdslkdslkdslkdslklkdslkds</description>
 
-    <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-    ]]>
-    </change-notes>
+    <change-notes>These are the change notessdklkdslkdslklkdslkdslkdslklkdslkdslkdslkdslk</change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <!--<idea-version since-build="145.0"/>-->
@@ -50,12 +43,20 @@
     </extensions>
 
 
+    <applicationListeners>
+        <listener class="org.kigamba.simple.ProjectOpenCloseListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
     <extensions defaultExtensionNs="com.intellij">
         <annotator language="JAVA" implementationClass="org.kigamba.simple.SimpleAnnotator"/>
+        <!-- Declare the application level service -->
+        <projectService serviceInterface="com.intellij.openapi.components.PersistentStateComponent"
+                            serviceImplementation="com.jetbrains.jsonSchema.NeatFormJsonSchemaMappingsProjectConfiguration" />
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
     </actions>
 
+    <idea-version since-build="193.3519.25"/>
 </idea-plugin>
