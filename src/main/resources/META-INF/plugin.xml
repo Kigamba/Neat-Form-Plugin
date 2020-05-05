@@ -28,6 +28,7 @@
         <fileTypeFactory implementation="org.shan.SimpleFileTypeFactory"/>
     </extensions>-->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="Neat Form JSON File" implementationClass="org.shan.SimpleFileType"
                   fieldName="INSTANCE" language="Neat Form JSON File" extensions="neatjson"/>
@@ -46,6 +47,11 @@
     <extensions defaultExtensionNs="com.intellij">
         <completion.contributor language="Neat Form JSON File"
                                 implementationClass="org.shan.completion_contributor.SimpleCompletionContributor"/>
+    </extensions>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <annotator language="JAVA" implementationClass="org.kigamba.simple.SimpleAnnotator"/>
     </extensions>
 
     <actions>

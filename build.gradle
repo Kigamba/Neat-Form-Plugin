@@ -2,6 +2,13 @@
 buildscript {
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.5.0-SNAPSHOT"
     }
 }
 
@@ -15,9 +22,11 @@ intellij {
     version '2019.3.3'
     pluginName 'Simple-IntelliJ-Plugin'
     updateSinceUntilBuild false
-    plugins 'coverage'
+    plugins = ['coverage', 'java']
 }
 
+group 'org.intellij.sdk'
+version '2.0.0'
 
 repositories {
     mavenCentral()
