@@ -40,7 +40,7 @@ public class ProjectOpenCloseListener implements ProjectManagerListener {
 
         try {
 
-            if (isNeatFormSchemaRegistered(project)) {
+            if (!isNeatFormSchemaRegistered(project)) {
                 addJsonSchema(project);
             } else {
                 print("The user-defined schema already exists");
