@@ -52,6 +52,8 @@
         <!-- Declare the application level service -->
         <projectService serviceInterface="com.intellij.openapi.components.PersistentStateComponent"
                             serviceImplementation="com.jetbrains.jsonSchema.NeatFormJsonSchemaMappingsProjectConfiguration" />
+
+        <annotator language="JSON" implementationClass="org.kigamba.neatform.JsonRulesFileChecker"/>
     </extensions>
 
     <actions>
