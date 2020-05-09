@@ -4,7 +4,6 @@ package org.kigamba.neatform;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.json.psi.JsonArray;
 import com.intellij.json.psi.JsonProperty;
-import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.json.psi.JsonStringLiteral;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -16,13 +15,26 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class JsonRulesFileChecker implements Annotator {
 
-    private HashMap<String, HashSet<String>> filesFieldNames = new HashMap<>();
+    private static HashMap<String, HashSet<String>> filesFieldNames = new HashMap<>();
+    private HashMap<String, AnnotationHolder> annotationHolders = new HashMap<>();
+    private LinkedList<PsiElement> elementsToTraverse = new LinkedList<>();
+
 
     @Override
     public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
+        String jsonFilePath = element.getContainingFile().getVirtualFile().getPath();
+
+        if (!annotationHolders.containsKey(jsonFilePath)) {
+            annotationHolders.put(jsonFilePath, holder);
+        }
+
+        if (!elementsToTraverse.contains(element)) {
+            elementsToTraverse.add(element);
+        }
 
         // Ensure the Psi Element is an expression
         if (element instanceof JsonStringLiteral) {
@@ -31,7 +43,6 @@ public class JsonRulesFileChecker implements Annotator {
             String rulesFilePath = jsonStringLiteral.getValue();
 
             boolean isPropertyValue = isPropertyValue(jsonStringLiteral);
-            String jsonFilePath = element.getContainingFile().getVirtualFile().getPath();
 
             // Check if the rules file exists
             if (isPropertyValue && ((JsonStringLiteral) jsonStringLiteral.getParent().getFirstChild()).getValue().equals("rules_file")) {
@@ -69,38 +80,59 @@ public class JsonRulesFileChecker implements Annotator {
                     }
                 }
             }
+        } else {
+            // We have reached the end of the file and can traverse it again
+            if ((element.getTextOffset() + element.getTextLength()) == element.getContainingFile().getTextLength()) {
+                AnnotationHolder fileAnnotationHolder = annotationHolders.get(jsonFilePath);
+                if (elementsToTraverse.size() > 0 && fileAnnotationHolder != null) {
+                    for (PsiElement element1: elementsToTraverse) {
+                        annotateAfterFullTraversal(element1, fileAnnotationHolder);
+                    }
+                }
+            }
+        }
+    }
 
-            // Make sure that the field exists in the subjects property
-            if (isPropertyValue) {
-                PsiElement propertyNameElement = jsonStringLiteral.getParent().getFirstChild();
-                if (propertyNameElement instanceof JsonStringLiteral) {
-                    String propertyName = ((JsonStringLiteral) propertyNameElement).getValue();
+    protected void annotateAfterFullTraversal(@NotNull PsiElement element, AnnotationHolder holder) {
+        if (!(element instanceof JsonStringLiteral)) return;
 
-                    if (propertyName.equals("subjects")) {
-                        PsiElement psiElement1 = element.getParent().getParent().getParent();
-                        PsiElement psiElement2 = psiElement1.getParent();
-                        if (psiElement1 instanceof JsonArray && psiElement2 instanceof JsonProperty &&
-                                psiElement2.getFirstChild() instanceof JsonStringLiteral &&
-                                ((JsonStringLiteral) psiElement2.getFirstChild()).getValue().equals("fields")) {
-                            String jsonStringLiteralValue = jsonStringLiteral.getValue();
-                            String[] fields = jsonStringLiteralValue.replace(" ", "").split(",");
+        String jsonFilePath = element.getContainingFile().getVirtualFile().getPath();
 
-                            for (String field : fields) {
-                                String[] fieldParts = field.split(":");
-                                if (fieldParts.length > 1) {
-                                    String fieldName = fieldParts[0];
-                                    String fieldType = fieldParts[1];
+        JsonStringLiteral jsonStringLiteral = (JsonStringLiteral) element;
+        String rulesFilePath = jsonStringLiteral.getValue();
 
-                                    HashSet<String> fileFields = filesFieldNames.get(jsonFilePath);
-                                    if (!(fileFields != null && fileFields.contains(fieldName))) {
-                                        Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field does not exist");
-                                        badProperty.setHighlightType(ProblemHighlightType.ERROR);
-                                    }
+        boolean isPropertyValue = isPropertyValue(jsonStringLiteral);
+
+        // Make sure that the field exists in the subjects property
+        if (isPropertyValue) {
+            PsiElement propertyNameElement = jsonStringLiteral.getParent().getFirstChild();
+            if (propertyNameElement instanceof JsonStringLiteral) {
+                String propertyName = ((JsonStringLiteral) propertyNameElement).getValue();
+
+                if (propertyName.equals("subjects")) {
+                    PsiElement psiElement1 = element.getParent().getParent().getParent();
+                    PsiElement psiElement2 = psiElement1.getParent();
+                    if (psiElement1 instanceof JsonArray && psiElement2 instanceof JsonProperty &&
+                            psiElement2.getFirstChild() instanceof JsonStringLiteral &&
+                            ((JsonStringLiteral) psiElement2.getFirstChild()).getValue().equals("fields")) {
+                        String jsonStringLiteralValue = jsonStringLiteral.getValue();
+                        String[] fields = jsonStringLiteralValue.replace(" ", "").split(",");
+
+                        for (String field : fields) {
+                            String[] fieldParts = field.split(":");
+                            if (fieldParts.length > 1) {
+                                String fieldName = fieldParts[0];
+                                String fieldType = fieldParts[1];
+
+                                HashSet<String> fileFields = filesFieldNames.get(jsonFilePath);
+                                if (!(fileFields != null && fileFields.contains(fieldName))) {
+                                    Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field does not exist");
+                                    badProperty.setHighlightType(ProblemHighlightType.ERROR);
                                 }
                             }
                         }
-
                     }
+
                 }
             }
         }
