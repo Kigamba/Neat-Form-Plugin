@@ -13,13 +13,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 public class JsonRulesFileChecker implements Annotator, PsiTreeChangeListener {
 
-    private static HashMap<String, HashMap<String, PsiElement>> filesFieldNames = new HashMap<>();
-    private static HashMap<PsiElement, String> fieldNameReferences = new HashMap<>();
+    public static HashMap<String, HashMap<String, PsiElement>> filesFieldNames = new HashMap<>();
+    public static HashMap<PsiElement, String> fieldNameReferences = new HashMap<>();
     private HashMap<String, AnnotationHolder> annotationHolders = new HashMap<>();
     private LinkedList<PsiElement> elementsToTraverse = new LinkedList<>();
 
@@ -91,6 +90,8 @@ public class JsonRulesFileChecker implements Annotator, PsiTreeChangeListener {
                     for (PsiElement element1: elementsToTraverse) {
                         annotateAfterFullTraversal(element1, fileAnnotationHolder);
                     }
+
+                    elementsToTraverse.clear();
                 }
             }
         }
