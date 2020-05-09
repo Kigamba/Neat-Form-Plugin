@@ -4,6 +4,7 @@ package org.kigamba.neatform;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.json.psi.JsonArray;
 import com.intellij.json.psi.JsonProperty;
+import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.json.psi.JsonStringLiteral;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -52,7 +53,17 @@ public class JsonRulesFileChecker implements Annotator {
                             psiElement2.getFirstChild() instanceof JsonStringLiteral &&
                             ((JsonStringLiteral) psiElement2.getFirstChild()).getValue().equals("fields")) {
                         HashSet<String> fields = filesFieldNames.computeIfAbsent(filePath, k -> new HashSet<>());
-                        fields.add(jsonStringLiteral.getValue());
+
+                        String jsonStringLiteralValue = jsonStringLiteral.getValue();
+
+
+                        // Check that the field-name does not already exist
+                        if (fields.contains(jsonStringLiteralValue)) {
+                            Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field-name already exists");
+                            badProperty.setHighlightType(ProblemHighlightType.ERROR);
+                        } else {
+                            fields.add(jsonStringLiteral.getValue());
+                        }
                     }
                 }
             }
