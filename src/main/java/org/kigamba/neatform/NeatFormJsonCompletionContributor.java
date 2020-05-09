@@ -29,7 +29,7 @@ public class NeatFormJsonCompletionContributor extends CompletionContributor {
                             PsiElement propertyKey = psiElement.getParent().getParent().getFirstChild();
                             if (JsonPsiUtil.isPropertyKey(propertyKey) && propertyKey instanceof JsonStringLiteral) {
                                 String propertyName = ((JsonStringLiteral) propertyKey).getValue();
-                                if (propertyName.equals("subjects")) {
+                                if (propertyName.equals("subjects") || propertyName.equals("binding_fields")) {
                                     String filePath = psiElement.getContainingFile().getOriginalFile().getVirtualFile().getPath();
                                     HashMap<String, PsiElement> fieldNames = JsonRulesFileChecker.filesFieldNames.get(filePath);
                                     // resultSet.addElement(LookupElementBuilder.create("Hello"));
