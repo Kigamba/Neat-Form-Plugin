@@ -19,7 +19,7 @@ import java.util.LinkedList;
 
 public class JsonRulesFileChecker implements Annotator {
 
-    private static HashMap<String, HashSet<String>> filesFieldNames = new HashMap<>();
+    private static HashMap<String, HashMap<String, PsiElement>> filesFieldNames = new HashMap<>();
     private HashMap<String, AnnotationHolder> annotationHolders = new HashMap<>();
     private LinkedList<PsiElement> elementsToTraverse = new LinkedList<>();
 
@@ -64,17 +64,18 @@ public class JsonRulesFileChecker implements Annotator {
                         if (psiElement1 instanceof JsonArray && psiElement2 instanceof JsonProperty &&
                                 psiElement2.getFirstChild() instanceof JsonStringLiteral &&
                                 ((JsonStringLiteral) psiElement2.getFirstChild()).getValue().equals("fields")) {
-                            HashSet<String> fields = filesFieldNames.computeIfAbsent(jsonFilePath, k -> new HashSet<>());
+                            HashMap<String, PsiElement> fields = filesFieldNames.computeIfAbsent(jsonFilePath, k -> new HashMap<>());
 
                             String jsonStringLiteralValue = jsonStringLiteral.getValue();
 
 
                             // Check that the field-name does not already exist
-                            if (fields.contains(jsonStringLiteralValue)) {
+                            PsiElement fieldNameElement = fields.get(jsonStringLiteralValue);
+                            if (fieldNameElement != null && element != fieldNameElement) {
                                 Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field-name already exists");
                                 badProperty.setHighlightType(ProblemHighlightType.ERROR);
                             } else {
-                                fields.add(jsonStringLiteral.getValue());
+                                fields.put(jsonStringLiteral.getValue(), element);
                             }
                         }
                     }
@@ -124,8 +125,9 @@ public class JsonRulesFileChecker implements Annotator {
                                 String fieldName = fieldParts[0];
                                 String fieldType = fieldParts[1];
 
-                                HashSet<String> fileFields = filesFieldNames.get(jsonFilePath);
-                                if (!(fileFields != null && fileFields.contains(fieldName))) {
+                                HashMap<String, PsiElement> fileFields = filesFieldNames.get(jsonFilePath);
+                                PsiElement fieldNameElement = fileFields.get(fieldName);
+                                if (!(fileFields != null && fieldNameElement != null)) {
                                     Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field does not exist");
                                     badProperty.setHighlightType(ProblemHighlightType.ERROR);
                                 }
