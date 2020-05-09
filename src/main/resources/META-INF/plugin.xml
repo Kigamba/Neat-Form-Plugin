@@ -54,6 +54,10 @@
                             serviceImplementation="com.jetbrains.jsonSchema.NeatFormJsonSchemaMappingsProjectConfiguration" />
 
         <annotator language="JSON" implementationClass="org.kigamba.neatform.JsonRulesFileChecker"/>
+
+        <completion.contributor language="JSON"
+                                implementationClass="org.kigamba.neatform.NeatFormJsonCompletionContributor"/>
+        <psi.referenceContributor implementation="org.kigamba.neatform.NeatFormJsonReferenceContributor"/>
     </extensions>
 
     <actions>
