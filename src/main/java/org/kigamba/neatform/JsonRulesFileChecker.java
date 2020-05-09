@@ -8,8 +8,7 @@ import com.intellij.json.psi.JsonStringLiteral;
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -17,9 +16,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class JsonRulesFileChecker implements Annotator {
+public class JsonRulesFileChecker implements Annotator, PsiTreeChangeListener {
 
     private static HashMap<String, HashMap<String, PsiElement>> filesFieldNames = new HashMap<>();
+    private static HashMap<PsiElement, String> fieldNameReferences = new HashMap<>();
     private HashMap<String, AnnotationHolder> annotationHolders = new HashMap<>();
     private LinkedList<PsiElement> elementsToTraverse = new LinkedList<>();
 
@@ -34,6 +34,7 @@ public class JsonRulesFileChecker implements Annotator {
 
         if (!elementsToTraverse.contains(element)) {
             elementsToTraverse.add(element);
+            PsiManager.getInstance(element.getProject()).addPsiTreeChangeListener(this);
         }
 
         // Ensure the Psi Element is an expression
@@ -75,7 +76,8 @@ public class JsonRulesFileChecker implements Annotator {
                                 Annotation badProperty = holder.createErrorAnnotation(element.getTextRange(), "This field-name already exists");
                                 badProperty.setHighlightType(ProblemHighlightType.ERROR);
                             } else {
-                                fields.put(jsonStringLiteral.getValue(), element);
+                                fields.put(jsonStringLiteralValue, element);
+                                fieldNameReferences.put(element, jsonStringLiteralValue);
                             }
                         }
                     }
@@ -169,6 +171,87 @@ public class JsonRulesFileChecker implements Annotator {
         }
 
         return false;
+    }
+
+    @Override
+    public void beforeChildAddition(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void beforeChildRemoval(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void beforeChildReplacement(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void beforeChildMovement(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void beforeChildrenChange(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void beforePropertyChange(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void childAdded(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void childRemoved(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void childReplaced(@NotNull PsiTreeChangeEvent event) {
+        PsiElement changedElement = event.getParent();
+
+        if (!fieldNameReferences.containsKey(changedElement)) return;
+
+        String filePath = changedElement.getContainingFile().getVirtualFile().getPath();
+
+        HashMap<String, PsiElement> fieldNames = filesFieldNames.get(filePath);
+        if (fieldNames != null) {
+            String key = fieldNameReferences.remove(changedElement);
+            fieldNames.remove(key);
+
+            if (changedElement instanceof JsonStringLiteral) {
+                JsonStringLiteral jsonStringLiteral = (JsonStringLiteral) changedElement;
+                String newStringValue = jsonStringLiteral.getValue();
+
+                if (!fieldNames.containsKey(newStringValue)) {
+                    fieldNameReferences.put(changedElement, newStringValue);
+                    fieldNames.put(newStringValue, changedElement
+                    );
+                }
+            }
+        }
+    }
+
+    @Override
+    public void childrenChanged(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void childMoved(@NotNull PsiTreeChangeEvent event) {
+
+    }
+
+    @Override
+    public void propertyChanged(@NotNull PsiTreeChangeEvent event) {
+
     }
 
 
