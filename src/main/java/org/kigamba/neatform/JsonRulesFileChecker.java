@@ -113,7 +113,7 @@ public class JsonRulesFileChecker implements Annotator, PsiTreeChangeListener {
             if (propertyNameElement instanceof JsonStringLiteral) {
                 String propertyName = ((JsonStringLiteral) propertyNameElement).getValue();
 
-                if (propertyName.equals("subjects")) {
+                if (propertyName.equals("subjects") || propertyName.equals("binding_fields")) {
                     PsiElement psiElement1 = element.getParent().getParent().getParent();
                     PsiElement psiElement2 = psiElement1.getParent();
                     if (psiElement1 instanceof JsonArray && psiElement2 instanceof JsonProperty &&
