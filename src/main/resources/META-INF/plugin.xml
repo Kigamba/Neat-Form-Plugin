@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.kigamba.ephraim.neatform</id>
-    <name>Simple</name>
+    <name>Neat Form Intellij</name>
     <version>0.1.1</version>
     <vendor email="nek.eam@gmail.com" url="https://github.com/Kigamba/Neat-Form-Plugin">Ephraim Kigamba</vendor>
 
