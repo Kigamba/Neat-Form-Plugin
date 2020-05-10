@@ -1,4 +1,4 @@
-package org.kigamba.simple;
+package com.kigamba.ephraim.neatform;
 
 
 import com.intellij.ide.plugins.PluginManager;
@@ -8,7 +8,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManagerListener;
 import com.jetbrains.jsonSchema.JsonMappingKind;
 import com.jetbrains.jsonSchema.JsonSchemaMappingsProjectConfiguration;
-import com.jetbrains.jsonSchema.NeatFormJsonSchemaMappingsProjectConfiguration;
 import com.jetbrains.jsonSchema.UserDefinedJsonSchemaConfiguration;
 import com.jetbrains.jsonSchema.impl.JsonSchemaVersion;
 import org.jetbrains.annotations.NotNull;

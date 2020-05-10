@@ -1,4 +1,4 @@
-package org.kigamba.neatform;
+package com.kigamba.ephraim.neatform;
 
 import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
