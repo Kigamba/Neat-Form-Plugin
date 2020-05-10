@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>org.shan</id>
+    <id>com.kigamba.ephraim.neatform</id>
     <name>Simple</name>
     <version>0.1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="nek.eam@gmail.com" url="https://github.com/Kigamba/Neat-Form-Plugin">Ephraim Kigamba</vendor>
 
     <description>My Short Descriptionkldsljljljljdskkdslkdslkdslkdslkdslkdslklkdslkds</description>
 
@@ -22,41 +22,16 @@
     </extensions>-->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
-    <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Neat Form JSON File" implementationClass="org.shan.SimpleFileType"
-                  fieldName="INSTANCE" language="Neat Form JSON File" extensions="neatjson"/>
-    </extensions>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <lang.parserDefinition language="Neat Form JSON File"
-                               implementationClass="org.shan.SimpleParserDefinition"/>
-    </extensions>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <lang.syntaxHighlighterFactory language="Neat Form JSON File"
-                                       implementationClass="org.shan.SimpleSyntaxHighlighterFactory"/>
-    </extensions>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <completion.contributor language="Neat Form JSON File"
-                                implementationClass="org.shan.completion_contributor.SimpleCompletionContributor"/>
-    </extensions>
-
 
     <applicationListeners>
-        <listener class="org.kigamba.simple.ProjectOpenCloseListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+        <listener class="com.kigamba.ephraim.neatform.ProjectOpenCloseListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <extensions defaultExtensionNs="com.intellij">
-        <annotator language="JAVA" implementationClass="org.kigamba.simple.SimpleAnnotator"/>
-        <!-- Declare the application level service -->
-        <projectService serviceInterface="com.intellij.openapi.components.PersistentStateComponent"
-                            serviceImplementation="com.jetbrains.jsonSchema.NeatFormJsonSchemaMappingsProjectConfiguration" />
-
-        <annotator language="JSON" implementationClass="org.kigamba.neatform.JsonRulesFileChecker"/>
+        <annotator language="JSON" implementationClass="com.kigamba.ephraim.neatform.JsonRulesFileChecker"/>
 
         <completion.contributor language="JSON"
-                                implementationClass="org.kigamba.neatform.NeatFormJsonCompletionContributor"/>
+                                implementationClass="com.kigamba.ephraim.neatform.NeatFormJsonCompletionContributor"/>
     </extensions>
 
     <actions>

@@ -32,16 +32,6 @@ repositories {
 }
 
 
-apply plugin: 'java'
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/gen'
-        }
-    }
-}
-
-
 apply plugin: 'antlr'
 dependencies {
     antlr "org.antlr:antlr4:4.6"
