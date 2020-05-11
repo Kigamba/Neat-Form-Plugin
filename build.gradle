@@ -20,7 +20,7 @@ plugins {
 apply plugin: 'org.jetbrains.intellij'
 intellij {
     version '2019.3.3'
-    pluginName 'Simple-IntelliJ-Plugin'
+    pluginName 'Neat Form Plugin'
     updateSinceUntilBuild false
     plugins = ['coverage', 'java']
 }
