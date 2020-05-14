@@ -40,3 +40,5 @@ apply plugin: 'antlr'
 dependencies {
     antlr "org.antlr:antlr4:4.6"
 }
+
+version "0.1.2"
