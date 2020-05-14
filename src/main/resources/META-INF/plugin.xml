@@ -23,15 +23,19 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
 
-    <applicationListeners>
+    <!--<applicationListeners>
         <listener class="com.kigamba.ephraim.neatform.ProjectOpenCloseListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    </applicationListeners>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <annotator language="JSON" implementationClass="com.kigamba.ephraim.neatform.JsonRulesFileChecker"/>
 
         <completion.contributor language="JSON"
                                 implementationClass="com.kigamba.ephraim.neatform.NeatFormJsonCompletionContributor"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="JavaScript">
+        <JsonSchema.ProviderFactory implementation="com.kigamba.ephraim.neatform.NeatFormJsonSchemaProviderFactory"/>
     </extensions>
 
     <actions>
