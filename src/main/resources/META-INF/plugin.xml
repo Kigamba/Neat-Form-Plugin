@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.kigamba.ephraim.neatform</id>
     <name>Neat Form Intellij</name>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <vendor email="nek.eam@gmail.com" url="https://github.com/Kigamba/Neat-Form-Plugin">Ephraim Kigamba</vendor>
 
     <description>My Short Descriptionkldsljljljljdskkdslkdslkdslkdslkdslkdslklkdslkds</description>
@@ -42,5 +42,5 @@
         <!-- Add your actions here -->
     </actions>
 
-    <idea-version since-build="193.3519.25"/>
+    <idea-version since-build="192"/>
 </idea-plugin>

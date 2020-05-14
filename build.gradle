@@ -23,6 +23,10 @@ intellij {
     pluginName 'Neat Form Plugin'
     updateSinceUntilBuild false
     plugins = ['coverage', 'java']
+
+/*    buildPlugin {
+        archiveVersion.set(getArchi)
+    }*/
 }
 
 sourceCompatibility = 1.8
