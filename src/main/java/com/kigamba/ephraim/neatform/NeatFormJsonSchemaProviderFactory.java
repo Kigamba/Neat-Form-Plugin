@@ -2,7 +2,9 @@ package com.kigamba.ephraim.neatform;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.util.ResourceUtil;
 import com.jetbrains.jsonSchema.extension.JsonSchemaFileProvider;
 import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory;
 import com.jetbrains.jsonSchema.extension.SchemaType;
@@ -10,6 +12,7 @@ import com.jetbrains.jsonSchema.impl.JsonSchemaVersion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class NeatFormJsonSchemaProviderFactory implements JsonSchemaProviderFact
     @Override
     public @NotNull List<JsonSchemaFileProvider> getProviders(@NotNull Project project) {
         try {
-            schemaFilePath = JsonPluginUtils.saveJsonSchemaInProject(project);
+            //schemaFilePath = JsonPluginUtils.saveJsonSchemaInProject(project);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +37,7 @@ public class NeatFormJsonSchemaProviderFactory implements JsonSchemaProviderFact
 
         private String schemaFilePath;
 
-        public NeatFormJsonSchemaProvider(@NotNull String schemaFilePath) {
+        public NeatFormJsonSchemaProvider(@Nullable String schemaFilePath) {
             this.schemaFilePath = schemaFilePath;
         }
 
@@ -51,7 +54,10 @@ public class NeatFormJsonSchemaProviderFactory implements JsonSchemaProviderFact
 
         @Override
         public @Nullable VirtualFile getSchemaFile() {
-            VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByPath(schemaFilePath);
+            /*VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByPath(schemaFilePath);
+            return virtualFile;*/
+            URL url = ResourceUtil.getResource(getClass().getClassLoader(), "schema-files", "neat_form_schema_validator-v3.json");
+            VirtualFile virtualFile = VfsUtil.findFileByURL(url);
             return virtualFile;
         }
 
