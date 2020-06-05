@@ -14,14 +14,15 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.18'
+    id 'org.jetbrains.intellij' version '0.4.21'
 }
 
 apply plugin: 'org.jetbrains.intellij'
 intellij {
+    //version 'IU-193.6494.35'
     version '2019.3.3'
     pluginName 'Neat Form Plugin'
-    updateSinceUntilBuild false
+    //updateSinceUntilBuild false
     plugins = ['coverage', 'java']
 
 /*    buildPlugin {
@@ -42,3 +43,25 @@ dependencies {
 }
 
 version "0.1.2"
+
+/*
+runIde {
+    ideDirectory ""
+}
+
+IntelliJ IDEA 2019.3.3 (Ultimate Edition)
+Build #IU-193.6494.35, built on February 11, 2020
+Licensed to Ephraim KIgamba
+Subscription is active until August 9, 2020
+For educational use only.
+Runtime version: 11.0.5+10-b520.38 amd64
+VM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+Windows 10 10.0
+GC: ParNew, ConcurrentMarkSweep
+Memory: 1981M
+Cores: 8
+Registry:
+Non-Bundled Plugins: ANTLRWorks, MavenRunHelper, PsiViewer, aws.toolkit, com.intellij.kubernetes, com.jetbrains.lightThemePreview, org.antlr.intellij.plugin, org.jetbrains.idea.grammar, tanvd.grazi, training
+
+
+*/
