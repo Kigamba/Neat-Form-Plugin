@@ -38,6 +38,13 @@
         <JsonSchema.ProviderFactory implementation="com.kigamba.ephraim.neatform.jsonschema.NeatFormJsonSchemaProviderFactory"/>
     </extensions>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <defaultLiveTemplatesProvider implementation="com.kigamba.ephraim.neatform.live_template.NeatFormJsonTemplateProvider"/>
+        <liveTemplateContext implementation="com.kigamba.ephraim.neatform.live_template.NeatFormJsonContext"/>
+        <liveTemplateContext implementation="com.kigamba.ephraim.neatform.live_template.NeatFormJsonLiteralsContextType"/>
+        <liveTemplateContext implementation="com.kigamba.ephraim.neatform.live_template.NeatFormJsonPropertyKeysContextType"/>
+    </extensions>
+
     <actions>
         <!-- Add your actions here -->
     </actions>
