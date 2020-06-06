@@ -4,14 +4,8 @@ package com.kigamba.ephraim.neatform;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManagerListener;
-import com.jetbrains.jsonSchema.JsonMappingKind;
-import com.jetbrains.jsonSchema.JsonSchemaMappingsProjectConfiguration;
-import com.jetbrains.jsonSchema.UserDefinedJsonSchemaConfiguration;
-import com.jetbrains.jsonSchema.impl.JsonSchemaVersion;
+import com.kigamba.ephraim.neatform.jsonschema.NeatFormJsonSchemaProviderFactory;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * This listener has been been deprecated for adding the Neat Form JSON Schema in favour of {@link NeatFormJsonSchemaProviderFactory}

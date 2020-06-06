@@ -4,43 +4,43 @@
         <variable name="WIDGET_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="WIDGET_PROPERTIES" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
     <template name="subjects" value="&quot;subjects&quot;: &quot;$SUBJECT1$&quot;" toReformat="false" toShortenFQNames="true">
         <variable name="SUBJECT1" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
     <template name="required_status" value="&quot;required_status&quot;: &quot;$YES_OR_NO$: $TEXT$&quot;" toReformat="false" toShortenFQNames="true">
         <variable name="YES_OR_NO" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
     <template name="validation" value="&quot;validation&quot;: [&#10;    {&#10;      &quot;condition&quot;: &quot;$condition$&quot;,&#10;      &quot;message&quot;: &quot;$MESSAGE$&quot;&#10;    }&#10;  ]" toReformat="false" toShortenFQNames="true">
         <variable name="condition" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="MESSAGE" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
-    <template name="binding_fields" value="&quot;binding_fields&quot;: &quot;$BINDING_FIELDS$&quot;," toReformat="false" toShortenFQNames="true">
+    <template name="binding_fields" value="&quot;binding_fields&quot;: &quot;$BINDING_FIELDS$&quot;" toReformat="false" toShortenFQNames="true">
         <variable name="BINDING_FIELDS" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
     <template name="option" value="{&#10;  &quot;name&quot;: &quot;$name$&quot;,&#10;  &quot;text&quot;: &quot;$text$&quot;,&#10;  &quot;meta_data&quot;: {&#10;    $meta_data$&#10;  }&#10;}" toReformat="false" toShortenFQNames="true">
@@ -48,9 +48,9 @@
         <variable name="text" expression="" defaultValue="" alwaysStopAt="true" />
         <variable name="meta_data" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
-            <option name="JSON" value="true" />
-            <option name="JSON_PROPERTY_KEYS" value="false" />
-            <option name="JSON_STRING_VALUES" value="false" />
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
 </templateSet>
