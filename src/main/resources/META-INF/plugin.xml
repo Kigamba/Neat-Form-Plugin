@@ -31,11 +31,11 @@
         <annotator language="JSON" implementationClass="com.kigamba.ephraim.neatform.JsonRulesFileChecker"/>
 
         <completion.contributor language="JSON"
-                                implementationClass="com.kigamba.ephraim.neatform.NeatFormJsonCompletionContributor"/>
+                                implementationClass="com.kigamba.ephraim.neatform.autocomplete.NeatFormJsonCompletionContributor"/>
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
-        <JsonSchema.ProviderFactory implementation="com.kigamba.ephraim.neatform.NeatFormJsonSchemaProviderFactory"/>
+        <JsonSchema.ProviderFactory implementation="com.kigamba.ephraim.neatform.jsonschema.NeatFormJsonSchemaProviderFactory"/>
     </extensions>
 
     <actions>
