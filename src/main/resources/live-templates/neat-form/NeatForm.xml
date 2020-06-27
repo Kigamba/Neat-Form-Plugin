@@ -53,4 +53,14 @@
             <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
         </context>
     </template>
+    <template name="form" value="{&#10;  &quot;form&quot;: &quot;$STEP_TITLE$&quot;,&#10;  &quot;rules_file&quot;: &quot;$RULES_FILES_NAME$&quot;,&#10;  &quot;steps&quot;: [&#10;    $WIDGETS$&#10;  ]&#10;}" toReformat="false" toShortenFQNames="true">
+        <variable name="STEP_TITLE" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="RULES_FILES_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="WIDGETS" expression="" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="NEAT_FORM_JSON" value="true" />
+            <option name="NEAT_FORM_JSON_PROPERTY_KEYS" value="false" />
+            <option name="NEAT_FORM_JSON_STRING_VALUES" value="false" />
+        </context>
+    </template>
 </templateSet>

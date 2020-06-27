@@ -1,7 +1,6 @@
 package com.kigamba.ephraim.neatform.jsonschema;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.ResourceUtil;
@@ -10,6 +9,7 @@ import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory;
 import com.jetbrains.jsonSchema.extension.SchemaType;
 import com.jetbrains.jsonSchema.impl.JsonSchemaVersion;
 import com.kigamba.ephraim.neatform.JsonPluginUtils;
+import com.kigamba.ephraim.neatform.util.Constants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +44,7 @@ public class NeatFormJsonSchemaProviderFactory implements JsonSchemaProviderFact
 
         @Override
         public boolean isAvailable(@NotNull VirtualFile file) {
-            boolean validateFile = file.getName().endsWith(".neat.json") && !file.isDirectory() && file.isValid();
+            boolean validateFile = file.getName().endsWith(Constants.NEAT_FORM_FILE_EXTENSION) && !file.isDirectory() && file.isValid();
             return validateFile;
         }
 
