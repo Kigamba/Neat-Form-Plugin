@@ -73,7 +73,8 @@
                                     "type": "string",
                                     "title": "The Type Schema",
                                     "description": "An explanation about the purpose of this instance.",
-                                    "default": ""
+                                    "default": "",
+                                    "enum": ["edit_text", "text_input_edit_text", "datetime_picker", "checkbox", "number_selector", "spinner", "radio_group", "multi_choice_checkbox"]
                                 },
                                 "properties": {
                                     "$id": "#/properties/steps/items/properties/fields/items/properties/properties",
@@ -112,7 +113,7 @@
                                         }
                                     },
                                     "patternProperties": {
-                                      "^[a-z]+[a-z0-9_]*$": { "type": ["string", "number", "boolean"] }
+                                        "^[a-z]+[a-z0-9_]*$": { "type": ["string", "number", "boolean"] }
                                     },
                                     "additionalProperties":false
                                 },
