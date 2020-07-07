@@ -1,0 +1,22 @@
+{
+  "form": "Student Registration Form",
+  "rules_file": "student_registration_rules.json",
+  "steps": [
+    {
+      "title": "Basic Details",
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "text_input_edit_text",
+          "properties": {}
+        },
+        {
+          "name": "nick_name",
+          "type": "text_input_edit_text",
+          "properties": {},
+          "subjects": "first_name:text"
+        }
+      ]
+    }
+  ]
+}
